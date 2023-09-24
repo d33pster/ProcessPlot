@@ -108,20 +108,20 @@ if __name__ == '__main__':
     try:
         processes = get_processes_info()
         df = construct_df(processes)
-    except psutil.ZombieProcess:
-        pass
     
-    if n==0:
-        print(df.to_string())
-    elif n>0:
-        print(df.head(n).to_string())
-    
-    while live_update:
-        processes = get_processes_info()
-        df = construct_df(processes)
-        os.system("clear") #fix for other os
         if n==0:
             print(df.to_string())
         elif n>0:
             print(df.head(n).to_string())
-        time.sleep(0.6)
+    
+        while live_update:
+            processes = get_processes_info()
+            df = construct_df(processes)
+            os.system("clear") #fix for other os
+            if n==0:
+                print(df.to_string())
+            elif n>0:
+                print(df.head(n).to_string())
+            time.sleep(0.6)
+    except psutil.ZombieProcess:
+        pass
