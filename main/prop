@@ -78,7 +78,7 @@ def construct_df(processes):
     df['write_bytes'] = df['write_bytes'].apply(get_size)
     df['read_bytes'] = df['read_bytes'].apply(get_size)
     
-    df['create_time'] = df['create_time'].apply(datetime.strftime, args=("%Y-%m-%d %H:%M:%S"))
+    df['create_time'] = df['create_time'].apply(datetime.strftime, args=("%Y-%m-%d %H:%M:%S",))
     
     df = df[columns.split(",")]
     return df
