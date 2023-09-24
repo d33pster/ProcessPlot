@@ -105,8 +105,10 @@ if __name__ == '__main__':
     
     n = int(args.n)
     live_update = args.live_update
-    
-    processes = get_processes_info()
+    try:
+        processes = get_processes_info()
+    except psutil.AccessDenied or psutil.ZombieProcess:
+        pass
     df = construct_df(processes)
     
     if n==0:
