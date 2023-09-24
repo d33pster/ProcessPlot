@@ -117,7 +117,7 @@ if __name__ == '__main__':
         while live_update:
             processes = get_processes_info()
             df = construct_df(processes)
-            os.system("clear") #fix for other os
+            os.system("cls") if "nt" in os.name else os.system("clear")
             if n==0:
                 print(df.to_string())
             elif n>0:
