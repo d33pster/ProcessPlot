@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+
+#macos only rn
+
+import os, platform
+
+if platform.system()=='Darwin':
+    os.system("sudo clear")
+
+    home = os.popen("echo $HOME").read().replace("\n","")
+    local_bin = os.path.join(home,'.local-bin')
+
+    #check local bin
+    print("Checking Local Bin ...")
+    if not (os.path.exists(local_bin)):
+        os.mkdir(local_bin)
+
+    #check python mods
+    print("Checking and Installing Dependencies ...")
+    os.system("pip install psutil pandas")
+    os.system("Clear")
+    print("Checking Local Bin ...")
+    print("Checking and Installing Dependencies ...")
+    
+    #copy
+    print("Copying Files ...") 
+    currentDirectory = os.popen("pwd").read().replace("\n","")
+    change = os.path.join(currentDirectory, 'main')
+    os.chdir(change)
+    os.system("sudo cp prop ~/.local-bin")
+    print("done.")
+else:
+    print("Platform not Supported!")
