@@ -84,44 +84,49 @@ def construct_df(processes):
     return df
 
 if __name__ == '__main__':
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="Process Viewer & Monitor")
-    
-    parser.add_argument("-c", "--columns", help="""Columns to show,
-                                                    available are name, create_time, cores, cpu_usage, status, nice, memory_usage, read_bytes, write_bytes, n_threads, username.
-                                                    Default is name, cpu_usage, memory_usage, read_bytes, write_bytes, status, create_time, nice, n_threads, cores""",
-                                            default="name,cpu_usage,memory_usage,read_bytes,write_bytes,status,create_time,nice,n_threads,cores")
-    
-    parser.add_argument("-s", "--sort-by", dest="sort_by", help="Column to sort by, default is memory_usage.", default="memory_usage")
-    parser.add_argument("--descending", action="store_true", help="whether to store in descending order.")
-    parser.add_argument("-n", help="Number of processes to show, will show all if 0 is specified, default is 25.", default=25)
-    parser.add_argument("-u", "--live-update", action="store_true", help="whether to keep the program on and updating process information each second")
-    
-    args = parser.parse_args()
-    columns = args.columns
-    sort_by = args.sort_by
-    descending = args.descending
-    
-    n = int(args.n)
-    live_update = args.live_update
     try:
-        processes = get_processes_info()
-        df = construct_df(processes)
-    
-        if n==0:
-            print(df.to_string())
-        elif n>0:
-            print(df.head(n).to_string())
-    
-        while live_update:
+        import argparse
+        
+        parser = argparse.ArgumentParser(description="Process Viewer & Monitor")
+        
+        parser.add_argument("-c", "--columns", help="""Columns to show,
+                                                        available are name, create_time, cores, cpu_usage, status, nice, memory_usage, read_bytes, write_bytes, n_threads, username.
+                                                        Default is name, cpu_usage, memory_usage, read_bytes, write_bytes, status, create_time, nice, n_threads, cores""",
+                                                default="name,cpu_usage,memory_usage,read_bytes,write_bytes,status,create_time,nice,n_threads,cores")
+        
+        parser.add_argument("-s", "--sort-by", dest="sort_by", help="Column to sort by, default is memory_usage.", default="memory_usage")
+        parser.add_argument("--descending", action="store_true", help="whether to store in descending order.")
+        parser.add_argument("-n", help="Number of processes to show, will show all if 0 is specified, default is 25.", default=25)
+        parser.add_argument("-u", "--live-update", action="store_true", help="whether to keep the program on and updating process information each second")
+        
+        args = parser.parse_args()
+        columns = args.columns
+        sort_by = args.sort_by
+        descending = args.descending
+        
+        n = int(args.n)
+        live_update = args.live_update
+        try:
             processes = get_processes_info()
             df = construct_df(processes)
-            os.system("cls") if "nt" in os.name else os.system("clear")
+        
             if n==0:
                 print(df.to_string())
             elif n>0:
                 print(df.head(n).to_string())
-            time.sleep(0.6)
-    except psutil.ZombieProcess:
-        pass
+        
+            while live_update:
+                processes = get_processes_info()
+                df = construct_df(processes)
+                os.system("cls") if "nt" in os.name else os.system("clear")
+                if n==0:
+                    print(df.to_string())
+                elif n>0:
+                    print(df.head(n).to_string())
+                time.sleep(0.6)
+        except psutil.ZombieProcess:
+            pass
+    except KeyboardInterrupt:
+        os.system("cls") if "nt" in os.name else os.system("clear")
+        print("exiting ...")
+        time.sleep(1)
