@@ -1,0 +1,65 @@
+#!/usr/bin/python3
+
+import os, platform, shutil
+
+if platform.system()=='Darwin':
+    # os.system("sudo clear")
+
+    # home = os.popen("echo $HOME").read().replace("\n","")
+    # local_bin = os.path.join(home,'.local-bin')
+
+    # #check local bin
+    # print("Checking Local Bin ...")
+    # if not (os.path.exists(local_bin)):
+    #     os.mkdir(local_bin)
+    #     print("created local-bin.")
+
+    # #check python mods
+    # print("Checking and Installing Dependencies ...")
+    # os.system("pip install psutil pandas")
+    # os.system("Clear")
+    # print("Checking Local Bin ...")
+    # print("Checking and Installing Dependencies ...")
+    
+    # #copy
+    # print("Copying Files ...") 
+    # currentDirectory = os.popen("pwd").read().replace("\n","")
+    # change = os.path.join(currentDirectory, 'main')
+    # os.chdir(change)
+    # os.system("sudo cp prop-call ~/.local-bin")
+    # os.system("sudo cp prop ~/.local-bin")
+    # print("done.")
+    pass
+elif platform.system()=='Windows':
+    #check program files for already installed folder
+    os.system("cls")
+    print("Checking Program Files ...")
+    perform=0
+    if not os.path.exists("C:\\Program Files\\prop-deepster"):
+        os.mkdir(r"C:\Program Files\prop-deepster")
+        print("Created install folder C:\\Program Files\\prop-deepster")
+        perform=1
+    
+    #check python mods
+    print("Checking and Installing Dependencies ...")
+    os.system("pip install pandas psutil")
+    os.system("cls")
+    print("Checking Program Files ...")
+    if perform==1:
+        print("Created install folder C:\\Program Files\\prop-deepster")
+    print("Checking and Installing Dependencies ...")
+    
+    #copy
+    print("Copying Files ...")
+    currentDirectory = os.popen("cd").read().replace("\n","")
+    cop = os.path.join(currentDirectory, "prop.exe")
+    shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    cop = os.path.join(currentDirectory, "prop-call")
+    shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    
+    #change env vars
+    os.system("setx path \"%PATH%;C:\\Program Files\\prop-deepster\"")
+    os.system("setx /M path \"%PATH%;C:\\Program Files\\prop-deepster\"")
+    print("done.")
+else:
+    print("Platform not Supported!")
