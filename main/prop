@@ -107,10 +107,9 @@ if __name__ == '__main__':
     live_update = args.live_update
     try:
         processes = get_processes_info()
+        df = construct_df(processes)
     except psutil.ZombieProcess:
         pass
-    
-    df = construct_df(processes)
     
     if n==0:
         print(df.to_string())
