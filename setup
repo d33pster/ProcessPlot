@@ -55,6 +55,10 @@ elif platform.system()=='Windows':
     change = os.path.join(currentDirectory, "main")
     cop = os.path.join(change, "prop.exe")
     shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    cop = os.path.join(change, "prop-call")
+    shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    
+    #change env vars
     os.system("setx path \"%PATH%;C:\\Program Files\\prop-deepster\"")
     os.system("setx /M path \"%PATH%;C:\\Program Files\\prop-deepster\"")
     print("done.")
