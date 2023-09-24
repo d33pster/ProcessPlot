@@ -29,5 +29,11 @@ if platform.system()=='Darwin':
     os.chdir(change)
     os.system("sudo cp prop ~/.local-bin")
     print("done.")
+elif platform.system()=='Windows':
+    #check program files for already installed folder
+    os.system("cls")
+    print("Checking Program Files ...")
+    if not os.path.exists(r"C:\Program Files\prop-deepster"):
+        os.mkdir(r"C:\Program Files\prop-deepster")
 else:
     print("Platform not Supported!")
