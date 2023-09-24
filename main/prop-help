@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+from os import name, system
+
+system("Cls") if "nt" in name else system("clear")
+print("Process Plot Help (prop-help)")
+print("HINT: to be used with prop-custom")
+print("-c | --colums [Value(s)]      Show Columns\n")
+print("                              Available: name, create_time, cores, cpu_usage,")
+print("                              memory_usage, read_bytes, write_bytes, n_threads,")
+print("                              status, nice, username\n")
+print("                              Default: name, cpu_usage, memory_object, read_bytes")
+print("                              write_bytes, status, create_time, nice, n_threads, cores\n")
+print("-s | --sort-by [Column] --descending(optional)")
+print("                              Sort by Column\n")
+print("                              Default: memory_usage\n")
+print("-n [Number]                   Number of Processes to show\n")
+print("                              Default: 25\n")

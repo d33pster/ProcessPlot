@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-#desktop only
 
-from os import system, popen, chdir, name
+from os import system, popen, chdir
+from sys import argv
 
 currentDirectory = popen("cd").read().replace("\n","")
 path = "C:\\Program Files\\prop-deepster"
 chdir(path)
-system("python prop-call -u")
+argLength = len(argv)
+argss=""
+for i in range(1,argLength):
+    argss=argss+" "+argv[i]
+system(f"python prop-call -u{argss}")
 choke = input("\n\nPress Enter to continue")
 system(f"cd {currentDirectory}")
