@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os, platform
+import os, platform, shutil
 
 if platform.system()=='Darwin':
     os.system("sudo clear")
@@ -51,9 +51,9 @@ elif platform.system()=='Windows':
     print("Copying Files ...")
     currentDirectory = os.popen("cd").read().replace("\n","")
     change = os.path.join(currentDirectory, "main")
-    os.chdir(change)
-    os.system(f"copy prop C:\\Program Files\\prop-desktop")
-    os.system("setx path '%PATH%;C:\\Program Files\\prop-desktop'")
+    cop = os.path.join(change, "prop.exe")
+    shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    os.system("setx path \"%PATH%;C:\\Program Files\\prop-desktop\"")
     print("done.")
 else:
     print("Platform not Supported!")
