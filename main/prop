@@ -6,6 +6,6 @@ from os import system, popen, chdir, name
 currentDirectory = popen("cd").read().replace("\n","")
 path = "C:\\Program Files\\prop-deepster"
 chdir(path)
-system("python prop-call -u")
+system("python prop-call.dat -u")
 choke = input("\n\nPress Enter to continue")
 system(f"cd {currentDirectory}")

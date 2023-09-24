@@ -10,6 +10,6 @@ argLength = len(argv)
 argss=""
 for i in range(1,argLength):
     argss=argss+" "+argv[i]
-system(f"python prop-call -u{argss}")
+system(f"python prop-call.dat -u{argss}")
 choke = input("\n\nPress Enter to continue")
 system(f"cd {currentDirectory}")
