@@ -3,31 +3,33 @@
 import os, platform, shutil
 
 if platform.system()=='Darwin':
-    os.system("sudo clear")
+    # os.system("sudo clear")
 
-    home = os.popen("echo $HOME").read().replace("\n","")
-    local_bin = os.path.join(home,'.local-bin')
+    # home = os.popen("echo $HOME").read().replace("\n","")
+    # local_bin = os.path.join(home,'.local-bin')
 
-    #check local bin
-    print("Checking Local Bin ...")
-    if not (os.path.exists(local_bin)):
-        os.mkdir(local_bin)
-        print("created local-bin.")
+    # #check local bin
+    # print("Checking Local Bin ...")
+    # if not (os.path.exists(local_bin)):
+    #     os.mkdir(local_bin)
+    #     print("created local-bin.")
 
-    #check python mods
-    print("Checking and Installing Dependencies ...")
-    os.system("pip install psutil pandas")
-    os.system("Clear")
-    print("Checking Local Bin ...")
-    print("Checking and Installing Dependencies ...")
+    # #check python mods
+    # print("Checking and Installing Dependencies ...")
+    # os.system("pip install psutil pandas")
+    # os.system("Clear")
+    # print("Checking Local Bin ...")
+    # print("Checking and Installing Dependencies ...")
     
-    #copy
-    print("Copying Files ...") 
-    currentDirectory = os.popen("pwd").read().replace("\n","")
-    change = os.path.join(currentDirectory, 'main')
-    os.chdir(change)
-    os.system("sudo cp prop ~/.local-bin")
-    print("done.")
+    # #copy
+    # print("Copying Files ...") 
+    # currentDirectory = os.popen("pwd").read().replace("\n","")
+    # change = os.path.join(currentDirectory, 'main')
+    # os.chdir(change)
+    # os.system("sudo cp prop-call ~/.local-bin")
+    # os.system("sudo cp prop ~/.local-bin")
+    # print("done.")
+    pass
 elif platform.system()=='Windows':
     #check program files for already installed folder
     os.system("cls")
@@ -53,7 +55,8 @@ elif platform.system()=='Windows':
     change = os.path.join(currentDirectory, "main")
     cop = os.path.join(change, "prop.exe")
     shutil.copy(cop, "C:\\Program Files\\prop-deepster")
-    os.system("setx path \"%PATH%;C:\\Program Files\\prop-desktop\"")
+    os.system("setx path \"%PATH%;C:\\Program Files\\prop-deepster\"")
+    os.system("setx /M path \"%PATH%;C:\\Program Files\\prop-deepster\"")
     print("done.")
 else:
     print("Platform not Supported!")
