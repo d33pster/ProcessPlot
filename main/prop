@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 #desktop only
 
-from os import system
+from os import system, popen
 
+currentDirectory = popen("cd").read().replace("\n","")
 path = "C:\\Program Files\\prop-deepster"
 system(f"cd {path}")
 system("python prop-call")
+choke = input("\n\nPress Enter to continue")
+system(f"cd {currentDirectory}")
