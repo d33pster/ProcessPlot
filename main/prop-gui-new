@@ -82,7 +82,7 @@ class prop:
 def updater():
     first_output = os.system('python prop-call2.dat -n 0')
     time.sleep(5)
-    df = pd.read_csv('first.csv')
+    df = pd.read_csv('update.csv')
     return df
 
 def main():
