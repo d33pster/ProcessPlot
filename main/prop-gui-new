@@ -104,6 +104,7 @@ def updater():
 
 def main():
     df = updater()
+    time.sleep(3)
     hostname = socket.gethostname()
     root = Tk()
     root.title(f"Process Plot ~ running on {hostname}")
