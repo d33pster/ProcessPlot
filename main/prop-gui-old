@@ -8,10 +8,8 @@ from datetime import datetime
 import pandas as pd
 
 class prop:
-    def __init__(self, master, df):
+    def __init__(self, master):
         self.parent = master
-        
-        #setup notebook
         self.notebook = ttk.Notebook(master) #notebook init
         self.notebook.pack(fill=BOTH, expand=True)
         
@@ -29,24 +27,22 @@ class prop:
         self.frame1child1.pack(fill=BOTH)
         self.all = Text(self.frame1child1)
         self.all.pack(fill=BOTH)
-        self.all.insert(END, df.to_string())
+        self.all.after(500, self.process_refresh_all)
         
         #setup CPU ~~ frame2
         self.frame2child1 = ttk.Frame(self.frame2)
         self.frame2child1.pack(fill=BOTH)
-        self.CPU = Text(self.frame2child1, wrap='none')
+        self.CPU = Text(self.frame2child1)
         self.CPU.pack(fill=BOTH)
-        cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
-        self.CPU.insert(END, cpu_df.to_string())
+        self.CPU.after(1000, self.CPU_refresh)
         
         #setup Memory ~~ frame3
         self.frame3child1 = ttk.Frame(self.frame3)
         self.frame3child1.pack(fill=BOTH)
         self.mem = Text(self.frame3child1)
         self.mem.pack(fill=BOTH)
-        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
-        self.mem.insert(END, mem_df.to_string())
-
+        self.mem.after(1500, self.mem_refresh)
+        
         #setup Kill ~~ frame4
         self.frame4child1 = ttk.Frame(self.frame4)
         self.frame4child1.pack(fill=BOTH)
@@ -69,54 +65,48 @@ class prop:
         self.killednotification.set('')
         self.frame4child4label1 = ttk.Label(self.frame4child4, textvariable=self.killednotification, justify=CENTER)
         self.frame4child4label1.pack()
-        
-        #updater
-        self.parent.update()
-        df = updater()
-        self.all_update(df=df)
-    
-    def all_update(self, df):
+   
+    def process_refresh_all(self):
+        allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        allprocess_out, allprocess_err = allprocess.communicate()
         self.all.delete(1.0, END)
-        self.all.insert(END, df.to_string())
-        cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
-        self.CPU.delete(1.0, END)
-        self.CPU.insert(END, cpu_df.to_string())
-        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
-        self.mem.delete(1.0, END)
-        self.mem.insert(END, mem_df.to_string())
+        self.all.insert(END, allprocess_out)
+        self.all.after(3500, self.process_refresh_all)
         self.parent.update()
-        df = updater()
-        self.all.after(50000, self.all_update(df))
-        
+    
+    def CPU_refresh(self):
+        CPU_usage = subprocess.Popen('python prop-call.dat -c \"name,cpu_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s cpu_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        CPU_usage_out, CPU_usage_err = CPU_usage.communicate()
+        self.CPU.delete(1.0, END)
+        self.CPU.insert(END, CPU_usage_out)
+        self.CPU.after(2000, self.CPU_refresh)
+        self.parent.update()
+    
+    def mem_refresh(self):
+        mem_usage = subprocess.Popen('python prop-call.dat -c \"name,memory_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s memory_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        mem_usage_out, mem_usage_err = mem_usage.communicate()
+        self.mem.delete(1.0, END)
+        self.mem.insert(END, mem_usage_out)
+        self.mem.after(2500, self.mem_refresh)
+        self.parent.update()
+    
     def kill(self):
         os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
         self.killednotification.set(f'Killed process: {self.frame4child2entry1.get()}')
         self.frame4child4label1.after(2000, self.clean_kill_notification)
+        self.parent.update()
     
     def clean_kill_notification(self):
         self.killednotification.set('')
         self.emptyText.set('')
+        self.parent.update()
         
-def updater():
-    first_output = os.system('python \"C:\\Program Files\\prop-deepster\\prop-call2.dat\" -n 0')
-    time.sleep(10)
-    df = pd.read_csv('C:\\Program Files\\prop-deepster\\update.csv')
-    return df
-
 def main():
-    if os.path.exists("C:\\Program Files\\prop-deepster\\update.csv"):
-        os.remove("C:\\Program Files\\prop-deepster\\update.csv")
-    df = updater()
-    time.sleep(3)
     hostname = socket.gethostname()
     root = Tk()
     root.title(f"Process Plot ~ running on {hostname}")
-    root.geometry("1200x410")
-    app = prop(master=root, df=df)
+    root.geometry("1100x410")
+    app = prop(root)
     root.mainloop()
-
-if __name__=='__main__':
-    try:
-        main()
-    except TclError:
-        pass
+    
+if __name__=='__main__':main()
