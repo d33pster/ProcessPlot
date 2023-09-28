@@ -76,7 +76,6 @@ class prop:
         self.all.after(1000, self.all_update(df))
     
     def all_update(self, df):
-        time.sleep(1)
         self.all.delete(1.0, END)
         self.all.insert(END, df.to_string())
         cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
@@ -86,9 +85,8 @@ class prop:
         self.mem.delete(1.0, END)
         self.mem.insert(END, mem_df)
         self.parent.update()
-        time.sleep(4)
         df = updater()
-        self.all_update(df)
+        self.all.after(5000, self.all_update(df))
         
     def kill(self):
         os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
