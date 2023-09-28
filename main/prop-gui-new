@@ -108,7 +108,7 @@ def main():
     root.geometry("1200x410")
     app = prop(master=root, df=df)
     df = updater()
-    app_update = prop.all_update(df)
+    app_update = prop.all_update(df=df)
     root.mainloop()
 
 if __name__=='__main__':
