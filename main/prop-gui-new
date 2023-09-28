@@ -71,10 +71,9 @@ class prop:
         self.frame4child4label1.pack()
         
         #updater
+        self.parent.update()
         df = updater()
         self.all.after(1000, self.all_update(df))
-        # self.CPU.after(1000, self.CPU_update(df))
-        # self.
     
     def all_update(self, df):
         time.sleep(1)
@@ -86,6 +85,7 @@ class prop:
         mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
         self.mem.delete(1.0, END)
         self.mem.insert(END, mem_df)
+        self.parent.udpate()
         time.sleep(4)
         df = updater()
         self.all_update(df)
