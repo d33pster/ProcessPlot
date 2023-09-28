@@ -51,7 +51,7 @@ class prop:
         self.all.delete(1.0, END)
         self.all.insert(END, allprocess_out)
         self.parent.update()
-        self.all.after(1000, self.process_refresh_all)
+        self.all.after(3500, self.process_refresh_all)
         self.parent.update()
     
     def CPU_refresh(self):
@@ -60,7 +60,7 @@ class prop:
         self.CPU.delete(1.0, END)
         self.CPU.insert(END, CPU_usage_out)
         self.parent.update()
-        self.CPU.after(1000, self.process_refresh_all)
+        self.CPU.after(2000, self.process_refresh_all)
         self.parent.update()
         
 def main():
