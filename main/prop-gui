@@ -97,7 +97,7 @@ class prop:
         self.mem.after(2500, self.mem_refresh)
     
     def kill(self):
-        os.kill(self.frame4child2entry1.get(), SIGKILL)
+        os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
         self.killednotification.set(f'Killed process {self.frame4child2entry1.get()}')
         self.frame4child4label1.after(2000, self.clean_kill_notification)
     
