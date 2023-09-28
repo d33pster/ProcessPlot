@@ -77,7 +77,7 @@ def updater():
     return df
 
 def main():
-    pd.set_option('display.max_columns', None)
+    pd.set_option('max_columns', 12)
     df = updater()
     hostname = socket.gethostname()
     root = Tk()
