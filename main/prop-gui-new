@@ -72,8 +72,6 @@ class prop:
         
         #updater
         self.parent.update()
-        df = updater()
-        self.all.after(50000, self.all_update(df))
     
     def all_update(self, df):
         self.all.delete(1.0, END)
@@ -109,6 +107,8 @@ def main():
     root.title(f"Process Plot ~ running on {hostname}")
     root.geometry("1200x410")
     app = prop(master=root, df=df)
+    df = updater()
+    app_update = prop.all_update(df)
     root.mainloop()
 
 if __name__=='__main__':
