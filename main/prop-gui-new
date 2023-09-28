@@ -29,7 +29,7 @@ class prop:
         self.frame1child1.pack(fill=BOTH)
         self.all = Text(self.frame1child1)
         self.all.pack(fill=BOTH)
-        self.all.insert(END, df)
+        self.all.insert(END, df.to_string())
         
         #setup CPU ~~ frame2
         self.frame2child1 = ttk.Frame(self.frame2)
@@ -37,7 +37,7 @@ class prop:
         self.CPU = Text(self.frame2child1)
         self.CPU.pack(fill=BOTH)
         cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
-        self.CPU.insert(END, cpu_df)
+        self.CPU.insert(END, cpu_df.to_string())
         
         #setup Memory ~~ frame3
         self.frame3child1 = ttk.Frame(self.frame3)
@@ -45,7 +45,7 @@ class prop:
         self.mem = Text(self.frame3child1)
         self.mem.pack(fill=BOTH)
         mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
-        self.mem.insert(END, mem_df)
+        self.mem.insert(END, mem_df.to_string())
 
         #setup Kill ~~ frame4
         self.frame4child1 = ttk.Frame(self.frame4)
@@ -77,7 +77,6 @@ def updater():
     return df
 
 def main():
-    pd.set_option('max_columns', 12)
     df = updater()
     hostname = socket.gethostname()
     root = Tk()
