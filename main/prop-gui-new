@@ -34,7 +34,7 @@ class prop:
         #setup CPU ~~ frame2
         self.frame2child1 = ttk.Frame(self.frame2)
         self.frame2child1.pack(fill=BOTH)
-        self.CPU = Text(self.frame2child1)
+        self.CPU = Text(self.frame2child1, wrap='none')
         self.CPU.pack(fill=BOTH)
         cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
         self.CPU.insert(END, cpu_df.to_string())
@@ -90,7 +90,7 @@ def main():
     hostname = socket.gethostname()
     root = Tk()
     root.title(f"Process Plot ~ running on {hostname}")
-    root.geometry("1170x410")
+    root.geometry("1200x410")
     app = prop(root, df=df)
     root.mainloop()
     
