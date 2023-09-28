@@ -31,6 +31,7 @@ class prop:
         allprocess_out, allprocess_err = allprocess.communicate()
         self.all.insert(END, allprocess_out)
         self.all.after(3500, self.process_refresh_all)
+        self.parent.update()
         
         #setup CPU ~~ frame2
         self.frame2child1 = ttk.Frame(self.frame2)
@@ -41,6 +42,7 @@ class prop:
         CPU_usage_out, CPU_usage_err = CPU_usage.communicate()
         self.CPU.insert(END, CPU_usage_out)
         self.CPU.after(2000, self.CPU_refresh)
+        self.parent.update()
         
         #setup Memory ~~ frame3
         self.frame3child1 = ttk.Frame(self.frame3)
@@ -51,6 +53,7 @@ class prop:
         mem_usage_out, mem_usage_err = mem_usage.communicate()
         self.mem.insert(END, mem_usage_out)
         self.mem.after(2500, self.mem_refresh)
+        self.parent.update()
         
         #setup Kill ~~ frame4
         self.frame4child1 = ttk.Frame(self.frame4)
