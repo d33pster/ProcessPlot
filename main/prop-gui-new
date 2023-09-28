@@ -61,7 +61,7 @@ class prop:
         self.frame4child2entry1.config(textvariable=self.emptyText)
         self.frame4child3 = ttk.Frame(self.frame4)
         self.frame4child3.pack(fill=BOTH)
-        self.frame4child3button1 = ttk.Button(self.frame4child3, text='[KILL]', command=self.kill)
+        self.frame4child3button1 = ttk.Button(self.frame4child3, text='[KILL]') #, command=self.kill)
         self.frame4child3button1.pack()
         self.frame4child4 = ttk.Frame(self.frame4)
         self.frame4child4.pack(fill=BOTH)
