@@ -90,7 +90,7 @@ def main():
     hostname = socket.gethostname()
     root = Tk()
     root.title(f"Process Plot ~ running on {hostname}")
-    root.geometry("1200x410")
+    root.geometry("1150x410")
     app = prop(root, df=df)
     root.mainloop()
     
