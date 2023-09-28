@@ -69,7 +69,27 @@ class prop:
         self.killednotification.set('')
         self.frame4child4label1 = ttk.Label(self.frame4child4, textvariable=self.killednotification, justify=CENTER)
         self.frame4child4label1.pack()
+        
+        #updater
+        df = updater()
+        self.all.after(1000, self.all_update(df))
+        # self.CPU.after(1000, self.CPU_update(df))
+        # self.
     
+    def all_update(self, df):
+        time.sleep(1)
+        self.all.delete(1.0, END)
+        self.all.insert(END, df.to_string())
+        cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
+        self.CPU.delete(1.0, END)
+        self.CPU.insert(END, cpu_df)
+        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
+        self.mem.delete(1.0, END)
+        self.mem.insert(END, mem_df)
+        time.sleep(4)
+        df = updater()
+        self.all_update(df)
+        
     def kill(self):
         os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
         self.killednotification.set(f'Killed process: {self.frame4child2entry1.get()}')
@@ -81,7 +101,6 @@ class prop:
         
 def updater():
     first_output = os.system('python prop-call2.dat -n 0')
-    time.sleep(5)
     df = pd.read_csv('update.csv')
     return df
 
@@ -93,7 +112,5 @@ def main():
     root.geometry("1200x410")
     app = prop(root, df=df)
     root.mainloop()
-    
-    
 
 if __name__=='__main__':main()
