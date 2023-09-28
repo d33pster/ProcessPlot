@@ -2,7 +2,8 @@
 
 from tkinter import *
 from tkinter import ttk
-import os, time, psutil, socket, subprocess, signal
+import os, time, psutil, socket, subprocess
+from signal import *
 from datetime import datetime
 import pandas as pd
 
@@ -96,7 +97,7 @@ class prop:
         self.mem.after(2500, self.mem_refresh)
     
     def kill(self):
-        os.kill(self.frame4child2entry1.get(), signal.SIGKILL)
+        os.kill(self.frame4child2entry1.get(), SIGKILL)
         self.killednotification.set(f'Killed process {self.frame4child2entry1.get()}')
         self.frame4child4label1.after(2000, self.clean_kill_notification)
     
