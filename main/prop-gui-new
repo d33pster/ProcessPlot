@@ -73,17 +73,17 @@ class prop:
         #updater
         self.parent.update()
         df = updater()
-        self.all.after(1000, self.all_update(df))
+        self.all.after(5000, self.all_update(df))
     
     def all_update(self, df):
         self.all.delete(1.0, END)
         self.all.insert(END, df.to_string())
         cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
         self.CPU.delete(1.0, END)
-        self.CPU.insert(END, cpu_df)
+        self.CPU.insert(END, cpu_df.to_string())
         mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
         self.mem.delete(1.0, END)
-        self.mem.insert(END, mem_df)
+        self.mem.insert(END, mem_df.to_string())
         self.parent.update()
         df = updater()
         self.all.after(5000, self.all_update(df))
