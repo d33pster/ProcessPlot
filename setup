@@ -36,7 +36,7 @@ elif platform.system()=='Windows':
     print("Checking Program Files ...")
     perform=0
     if not os.path.exists("C:\\Program Files\\prop-deepster"):
-        os.mkdir(r"C:\Program Files\prop-deepster")
+        os.mkdir("C:\\Program Files\\prop-deepster")
         print("Created install folder C:\\Program Files\\prop-deepster")
         perform=1
     
