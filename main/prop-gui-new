@@ -111,4 +111,8 @@ def main():
     app = prop(master=root, df=df)
     root.mainloop()
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    try:
+        main()
+    except TclError:
+        pass
