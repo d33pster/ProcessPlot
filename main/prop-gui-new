@@ -73,7 +73,7 @@ class prop:
         #updater
         self.parent.update()
         df = updater()
-        self.all.after(5000, self.all_update(df))
+        self.all.after(50000, self.all_update(df))
     
     def all_update(self, df):
         self.all.delete(1.0, END)
@@ -86,7 +86,7 @@ class prop:
         self.mem.insert(END, mem_df.to_string())
         self.parent.update()
         df = updater()
-        self.all.after(5000, self.all_update(df))
+        self.all.after(50000, self.all_update(df))
         
     def kill(self):
         os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
