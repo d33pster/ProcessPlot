@@ -80,7 +80,7 @@ class prop:
         self.emptyText.set('')
         
 def updater():
-    first_output = os.system('python prop-call2.dat')
+    first_output = os.system('python prop-call2.dat -n 0')
     time.sleep(5)
     df = pd.read_csv('first.csv')
     return df
