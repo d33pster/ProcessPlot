@@ -8,11 +8,60 @@ from datetime import datetime
 import pandas as pd
 
 class prop:
-    def __init__(self, master, df) -> None:
+    def __init__(self, master, df):
         self.parent = master
         
+        #setup notebook
+        self.notebook = ttk.Notebook(master) #notebook init
+        self.notebook.pack(fill=BOTH, expand=True)
+        
+        self.frame1 = ttk.Frame(self.notebook) #frame1 ~~ ALL
+        self.frame2 = ttk.Frame(self.notebook) #frame2 ~~ CPU
+        self.frame3 = ttk.Frame(self.notebook) #frame3 ~~ Memory
+        self.frame4 = ttk.Frame(self.notebook) #frame4 ~~ KILL
+        self.notebook.add(self.frame1, text='ALL')
+        self.notebook.add(self.frame2, text='CPU')
+        self.notebook.add(self.frame3, text='Memory')
+        self.notebook.add(self.frame4, text='KILL')
+        
+        #setup ALL ~~ frame 1
+        self.frame1child1 = ttk.Frame(self.frame1)
+        self.frame1child1.pack(fill=BOTH)
+        self.all = Text(self.frame1child1)
+        self.all.pack(fill=BOTH)
+        self.all.insert(END, df)
+        
+        #setup CPU ~~ frame2
+        self.frame2child1 = ttk.Frame(self.frame2)
+        self.frame2child1.pack(fill=BOTH)
+        self.CPU = Text(self.frame2child1)
+        self.CPU.pack(fill=BOTH)
+        cpu_df = df[['pid', 'name', 'cpu_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='cpu_usage', ascending=False)
+        self.CPU.insert(END, cpu_df)
+        
+        #setup Memory ~~ frame3
+        self.frame3child1 = ttk.Frame(self.frame3)
+        self.frame3child1.pack(fill=BOTH)
+        self.mem = Text(self.frame3child1)
+        self.mem.pack(fill=BOTH)
+        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memort=y_usage', ascending=False)
+        self.mem.insert(END, mem_df)
+        
+def updater():
+    first_output = os.system('python prop-call2.dat')
+    time.sleep(5)
+    df = pd.read_csv('first.csv')
+    return df
 
 def main():
-    first_output = os.system('python prop-call2.dat')
+    df = updater()
+    hostname = socket.gethostname()
+    root = Tk()
+    root.title(f"Process Plot ~ running on {hostname}")
+    root.geometry("1100x410")
+    app = prop(root, df=df)
+    root.mainloop()
+    
+    
 
 if __name__=='__main__':main()

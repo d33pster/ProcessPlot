@@ -111,18 +111,18 @@ if __name__ == '__main__':
             df = construct_df(processes)
         
             if n==0:
-                df.to_csv('first.csv')
+                df.to_csv('update.csv')
             elif n>0:
-                df.head(n).to_csv('first.csv')
+                df.head(n).to_csv('update.csv')
         
             while live_update:
                 processes = get_processes_info()
                 df = construct_df(processes)
                 os.system("cls") if "nt" in os.name else os.system("clear")
                 if n==0:
-                    df.to_csv('first.csv')
+                    df.to_csv('update.csv')
                 elif n>0:
-                    df.head(n).to_csv('first.csv')
+                    df.head(n).to_csv('update.csv')
                 time.sleep(0.6)
         except psutil.ZombieProcess:
             pass
