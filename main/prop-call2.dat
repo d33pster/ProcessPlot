@@ -111,20 +111,20 @@ if __name__ == '__main__':
             df = construct_df(processes)
         
             if n==0:
-                df.to_csv('update.csv')
+                df.to_csv('C:\\Program Files\\prop-deepster\\update.csv')
             elif n>0:
                 df=df.head(n)
-                df.to_csv('update.csv')
+                df.to_csv('C:\\Program Files\\prop-deepster\\update.csv')
         
             while live_update:
                 processes = get_processes_info()
                 df = construct_df(processes)
                 os.system("cls") if "nt" in os.name else os.system("clear")
                 if n==0:
-                    df.to_csv('update.csv')
+                    df.to_csv('C:\\Program Files\\prop-deepster\\update.csv')
                 elif n>0:
                     df=df.head(n)
-                    df.to_csv('update.csv')
+                    df.to_csv('C:\\Program Files\\prop-deepster\\update.csv')
                 time.sleep(0.6)
         except psutil.ZombieProcess:
             pass

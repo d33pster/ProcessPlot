@@ -99,10 +99,12 @@ class prop:
         
 def updater():
     first_output = os.system('python prop-call2.dat -n 0')
-    df = pd.read_csv('update.csv')
+    df = pd.read_csv('C:\\Program Files\\prop-deepster\\update.csv')
     return df
 
 def main():
+    if os.path.exists("C:\\Program Files\\prop-deepster\\update.csv"):
+        os.remove("C:\\Program Files\\prop-deepster\\update.csv")
     df = updater()
     time.sleep(3)
     hostname = socket.gethostname()
