@@ -27,30 +27,21 @@ class prop:
         self.frame1child1.pack(fill=BOTH)
         self.all = Text(self.frame1child1)
         self.all.pack(fill=BOTH)
-        allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        allprocess_out, allprocess_err = allprocess.communicate()
-        self.all.insert(END, allprocess_out)
-        self.all.after(3500, self.process_refresh_all)
+        self.all.after(500, self.process_refresh_all)
         
         #setup CPU ~~ frame2
         self.frame2child1 = ttk.Frame(self.frame2)
         self.frame2child1.pack(fill=BOTH)
         self.CPU = Text(self.frame2child1)
         self.CPU.pack(fill=BOTH)
-        CPU_usage = subprocess.Popen('python prop-call.dat -c \"name,cpu_usage,read_bytes,write_bytes,status,create_time,nice,n_threads,cores\" -s cpu_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        CPU_usage_out, CPU_usage_err = CPU_usage.communicate()
-        self.CPU.insert(END, CPU_usage_out)
-        self.CPU.after(2000, self.CPU_refresh)
+        self.CPU.after(1000, self.CPU_refresh)
         
         #setup Memory ~~ frame3
         self.frame3child1 = ttk.Frame(self.frame3)
         self.frame3child1.pack(fill=BOTH)
         self.mem = Text(self.frame3child1)
         self.mem.pack(fill=BOTH)
-        mem_usage = subprocess.Popen('python prop-call.dat -c \"name,memory_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s memory_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        mem_usage_out, mem_usage_err = mem_usage.communicate()
-        self.mem.insert(END, mem_usage_out)
-        self.mem.after(2500, self.mem_refresh)
+        self.mem.after(1500, self.mem_refresh)
         
         #setup Kill ~~ frame4
         self.frame4child1 = ttk.Frame(self.frame4)
