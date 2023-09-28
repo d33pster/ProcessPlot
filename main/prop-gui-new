@@ -85,7 +85,7 @@ class prop:
         mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
         self.mem.delete(1.0, END)
         self.mem.insert(END, mem_df)
-        self.parent.udpate()
+        self.parent.update()
         time.sleep(4)
         df = updater()
         self.all_update(df)
@@ -110,7 +110,7 @@ def main():
     root = Tk()
     root.title(f"Process Plot ~ running on {hostname}")
     root.geometry("1200x410")
-    app = prop(root, df=df)
+    app = prop(master=root, df=df)
     root.mainloop()
 
 if __name__=='__main__':main()
