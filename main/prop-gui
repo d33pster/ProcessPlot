@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+from tkinter import *
+from tkinter import ttk
+import os, time, psutil, socket, subprocess
+from datetime import datetime
+import pandas as pd
+
+class prop:
+    def __init__(self, master):
+        self.parent = master
+        self.notebook = ttk.Notebook(master) #notebook init
+        self.notebook.pack(fill=BOTH, expand=True)
+        
+        self.frame1 = ttk.Frame(self.notebook) #frame1 ~~ ALL
+        self.frame2 = ttk.Frame(self.notebook) #frame2 ~~ CPU
+        self.frame3 = ttk.Frame(self.notebook) #frame3 ~~ Memory
+        self.frame4 = ttk.Frame(self.notebook) #frame4 ~~ KILL
+        self.notebook.add(self.frame1, text='ALL')
+        self.notebook.add(self.frame2, text='CPU')
+        self.notebook.add(self.frame3, text='Memory')
+        self.notebook.add(self.frame4, text='KILL')
+        
+        #setup ALL ~~ frame 1
+        self.frame1child1 = ttk.Frame(self.frame1)
+        self.frame1child1.pack(fill=BOTH)
+        self.all = Text(self.frame1child1)
+        self.all.pack(fill=BOTH)
+        self.all.config()
+        allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        allprocess_out, allprocess_err = allprocess.communicate()
+        self.all.insert(END, allprocess_out)
+        self.all.after(1000, self.process_refresh)
+    
+    def process_refresh(self):
+        allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        allprocess_out, allprocess_err = allprocess.communicate()
+        self.all.delete(1.0, END)
+        self.all.insert(END, allprocess_out)
+        self.all.after(1000, self.process_refresh)
+        
+def main():
+    hostname = socket.gethostname()
+    root = Tk()
+    root.title(f"Process Plot ~ {hostname}")
+    app = prop(root)
+    root.mainloop()
+    
+if __name__=='__main__':main()
