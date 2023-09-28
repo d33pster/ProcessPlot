@@ -44,7 +44,7 @@ class prop:
         self.frame3child1.pack(fill=BOTH)
         self.mem = Text(self.frame3child1)
         self.mem.pack(fill=BOTH)
-        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memort=y_usage', ascending=False)
+        mem_df = df[['pid', 'name', 'memory_usage', 'read_bytes', 'write_bytes', 'status', 'create_time', 'n_threads', 'cores']].sort_values(by='memory_usage', ascending=False)
         self.mem.insert(END, mem_df)
         
 def updater():
