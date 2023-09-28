@@ -29,9 +29,7 @@ class prop:
         allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         allprocess_out, allprocess_err = allprocess.communicate()
         self.all.insert(END, allprocess_out)
-        self.parent.update()
         self.all.after(1000, self.process_refresh_all)
-        self.parent.update()
         
         #setup CPU ~~ frame2
         self.frame2child2 = ttk.Frame(self.frame2)
@@ -41,27 +39,21 @@ class prop:
         CPU_usage = subprocess.Popen('python prop-call.dat -c \"name,cpu_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s cpu_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         CPU_usage_out, CPU_usage_err = CPU_usage.communicate()
         self.CPU.insert(END, CPU_usage_out)
-        self.parent.update()
-        self.CPU.after(1000, self.CPU_refresh)
-        self.parent.update()        
+        self.CPU.after(1000, self.CPU_refresh)     
     
     def process_refresh_all(self):
         allprocess = subprocess.Popen('python prop-call.dat', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         allprocess_out, allprocess_err = allprocess.communicate()
         self.all.delete(1.0, END)
         self.all.insert(END, allprocess_out)
-        self.parent.update()
         self.all.after(3500, self.process_refresh_all)
-        self.parent.update()
     
     def CPU_refresh(self):
         CPU_usage = subprocess.Popen('python prop-call.dat -c \"name,cpu_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s cpu_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         CPU_usage_out, CPU_usage_err = CPU_usage.communicate()
         self.CPU.delete(1.0, END)
         self.CPU.insert(END, CPU_usage_out)
-        self.parent.update()
         self.CPU.after(2000, self.process_refresh_all)
-        self.parent.update()
         
 def main():
     hostname = socket.gethostname()
