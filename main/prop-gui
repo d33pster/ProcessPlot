@@ -72,6 +72,7 @@ class prop:
         self.all.delete(1.0, END)
         self.all.insert(END, allprocess_out)
         self.all.after(3500, self.process_refresh_all)
+        self.parent.update()
     
     def CPU_refresh(self):
         CPU_usage = subprocess.Popen('python prop-call.dat -c \"name,cpu_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s cpu_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -79,6 +80,7 @@ class prop:
         self.CPU.delete(1.0, END)
         self.CPU.insert(END, CPU_usage_out)
         self.CPU.after(2000, self.CPU_refresh)
+        self.parent.update()
     
     def mem_refresh(self):
         mem_usage = subprocess.Popen('python prop-call.dat -c \"name,memory_usage,read_bytes,write_bytes,status,create_time,n_threads,cores\" -s memory_usage --descending', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
@@ -86,15 +88,18 @@ class prop:
         self.mem.delete(1.0, END)
         self.mem.insert(END, mem_usage_out)
         self.mem.after(2500, self.mem_refresh)
+        self.parent.update()
     
     def kill(self):
         os.kill(int(self.frame4child2entry1.get().strip()), SIGINT)
         self.killednotification.set(f'Killed process: {self.frame4child2entry1.get()}')
         self.frame4child4label1.after(2000, self.clean_kill_notification)
+        self.parent.update()
     
     def clean_kill_notification(self):
         self.killednotification.set('')
         self.emptyText.set('')
+        self.parent.update()
         
 def main():
     hostname = socket.gethostname()
