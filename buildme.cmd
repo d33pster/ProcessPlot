@@ -42,9 +42,10 @@ del prop.exe
 del prop-custom.exe
 del prop-help.exe
 cd ..
+echo.
 echo done.
-echo
-echo
+echo.
+echo.
 echo Running Setup Script ...
 cd process-plot-win
 setup
