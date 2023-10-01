@@ -49,6 +49,9 @@ echo Running Setup Script ...
 cd process-plot-win
 setup
 if %ERRORLEVEL% neq 0 goto AccessDenied
+goto EOF
 
 :AccessDenied
 echo Run Setup Manually. (find setup inside process-plot-win directory)
+
+:EOF
