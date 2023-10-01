@@ -46,10 +46,11 @@ copy prop-help.exe ..\process-plot-win\main
 cd ..
 del main /s /q
 rmdir /s /q main
-del buildme.cmd
 echo done.
 echo " "
 echo " "
 echo "Running Setup Script ..."
 cd process-plot-win
 setup
+cd ..
+del buildme.cmd
