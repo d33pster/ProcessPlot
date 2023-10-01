@@ -61,7 +61,9 @@ elif platform.system()=='Windows':
     shutil.copy(cop, "C:\\Program Files\\prop-deepster")
     cop = os.path.join(change, "prop-help.exe")
     shutil.copy(cop, "C:\\Program Files\\prop-deepster")
-    cop = os.path.join(change, "prop-gui.exe")
+    cop = os.path.join(change, "prop-gui-call.dat")
+    shutil.copy(cop, "C:\\Program Files\\prop-deepster")
+    cop = os.path.join(change, "prop-gui.cmd")
     shutil.copy(cop, "C:\\Program Files\\prop-deepster")
     
     #change env vars
