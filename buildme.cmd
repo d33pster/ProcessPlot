@@ -55,3 +55,4 @@ goto EOF
 echo Run Setup Manually. (find setup inside process-plot-win directory)
 
 :EOF
+cd ..
