@@ -3,10 +3,12 @@ pip install pyinstaller
 mkdir process-plot-win
 pyinstaller --onefile setup --uac-admin -i main\pp.ico
 del setup.spec
-runas /user:Administrator rmdir build /s /q
+del build /s /q
+rmdir build
 cd dist
 copy ./setup.exe ../setup.exe
 cd ..
-runas /user:Administrator rmdir dist /s /q
+del dist /s /q
+rmdir dist
 copy setup.exe process-plot-win/setup.exe
 del setup.exe
