@@ -1,2 +1,2 @@
 @echo off
-python prop-gui-call.dat
+python "C:\Program Files\prop-deepster\prop-gui-call.dat"
