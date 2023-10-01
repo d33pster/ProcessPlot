@@ -1,14 +1,50 @@
 @echo off
 pip install pyinstaller
 mkdir process-plot-win
+cd process-plot-win
+mkdir main
+cd ..
 pyinstaller --onefile setup --uac-admin -i main\pp.ico
 del setup.spec
 del build /s /q
-rmdir build
+rmdir /s /q build
 cd dist
 copy setup.exe ..\setup.exe
 cd ..
 del dist /s /q
-rmdir dist
+rmdir /s /q dist
 copy setup.exe process-plot-win\setup.exe
 del setup.exe
+del setup
+del .gitignore
+cd main
+pyinstaller --onefile prop --uac-admin -i pp-app.ico
+pyinstaller --onefile prop-custom --uac-admin -i pp-app.ico
+pyinstaller --onefile prop-help -i pp-app.ico
+del prop.spec
+del prop-custom.spec
+del prop-help.spec
+del build /s /q
+rmdir /s /q build
+cd dist
+copy prop.exe ..\prop.exe
+copy prop-custom.exe ..\prop-custom.exe
+copy prop-help.exe ..\prop-help.exe
+cd ..
+del dist /s /q
+rmdir /s /q dist
+del prop
+del prop-custom
+del prop-help
+copy prop.exe ..\process-plot-win\main
+copy prop-call.dat ..\process-plot-win\main
+copy prop-call2.dat ..\process-plot-win\main
+copy prop-custom.exe ..\process-plot-win\main
+copy prop-gui.cmd ..\process-plot-win\main
+copy prop-gui-call.dat ..\process-plot-win\main
+copy prop-help.exe ..\process-plot-win\main
+cd ..
+del main /s /q
+rmdir /s /q main
+echo done.
+echo exiting ...
