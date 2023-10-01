@@ -15,8 +15,6 @@ del dist /s /q
 rmdir /s /q dist
 copy setup.exe process-plot-win\setup.exe
 del setup.exe
-del setup
-del .gitignore
 cd main
 pyinstaller --onefile prop --uac-admin -i pp-app.ico
 pyinstaller --onefile prop-custom --uac-admin -i pp-app.ico
@@ -33,9 +31,6 @@ copy prop-help.exe ..\prop-help.exe
 cd ..
 del dist /s /q
 rmdir /s /q dist
-del prop
-del prop-custom
-del prop-help
 copy prop.exe ..\process-plot-win\main
 copy prop-call.dat ..\process-plot-win\main
 copy prop-call2.dat ..\process-plot-win\main
@@ -43,14 +38,13 @@ copy prop-custom.exe ..\process-plot-win\main
 copy prop-gui.cmd ..\process-plot-win\main
 copy prop-gui-call.dat ..\process-plot-win\main
 copy prop-help.exe ..\process-plot-win\main
+del prop.exe
+del prop-custom.exe
+del prop-help.exe
 cd ..
-del main /s /q
-rmdir /s /q main
 echo done.
-echo " "
-echo " "
+echo
+echo
 echo "Running Setup Script ..."
 cd process-plot-win
 setup
-cd ..
-del buildme.cmd
