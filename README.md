@@ -1,5 +1,5 @@
 # ProcessPlot
-Process Manager coded in Python (For Windows Only)
+## Process Manager coded in Python (For Windows Only)
 
 ### Build From Source
 1. Open CMD in the cloned directory (not powershell), then type ```buildme```, hit enter
